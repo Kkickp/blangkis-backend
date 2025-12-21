@@ -4,7 +4,7 @@ $mysqli = mysqli_init();
 $mysqli->ssl_set(
   NULL,
   NULL,
-  __DIR__ . "/isrgrootx1.pem",
+  __DIR__ . "/ca.pem",
   NULL,
   NULL
 );
@@ -25,4 +25,5 @@ if ($mysqli->connect_error) {
 
 $conn = $mysqli;
 ?>
+
 
