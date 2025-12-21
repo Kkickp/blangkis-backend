@@ -1,12 +1,8 @@
 <?php
-function cleanEnv($key) {
-  return ltrim(trim(getenv($key)), '=');
-}
-
-$host = cleanEnv("DB_HOST");
-$user = cleanEnv("DB_USER");
-$pass = cleanEnv("DB_PASS");
-$db   = cleanEnv("DB_NAME");
+$host = "gateway01.ap-southeast-1.prod.aws.tidbcloud.com";
+$user = getenv("DB_USER");   // masih aman pakai env
+$pass = getenv("DB_PASS");
+$db   = getenv("DB_NAME");
 
 $mysqli = mysqli_init();
 
@@ -20,9 +16,9 @@ $mysqli->ssl_set(
 
 $mysqli->real_connect(
   $host,
-  $user,
-  $pass,
-  $db,
+  trim($user),
+  trim($pass),
+  trim($db),
   4000,
   NULL,
   MYSQLI_CLIENT_SSL
@@ -33,5 +29,4 @@ if ($mysqli->connect_error) {
 }
 
 $conn = $mysqli;
-?>
-
+echo "KONEKSI OK";
