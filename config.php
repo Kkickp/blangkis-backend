@@ -9,6 +9,14 @@ $mysqli->ssl_set(
   NULL
 );
 
+var_dump(
+  getenv("DB_HOST"),
+  getenv("DB_USER"),
+  getenv("DB_NAME")
+);
+exit;
+
+
 $mysqli->real_connect(
   getenv("DB_HOST"),
   getenv("DB_USER"),
@@ -25,5 +33,6 @@ if ($mysqli->connect_error) {
 
 $conn = $mysqli;
 ?>
+
 
 
