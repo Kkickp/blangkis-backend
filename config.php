@@ -1,15 +1,28 @@
 <?php
-$conn = new mysqli(
-  "gateway01.ap-southeast-1.prod.aws.tidbcloud.com",
-  "xxxxxxxx.root",
-  "PASSWORD_ASLI_TIDB",
-  "blangkis_db",
-  4000
+$mysqli = mysqli_init();
+
+/* SET SSL */
+$mysqli->ssl_set(
+  NULL,               // key
+  NULL,               // cert
+  __DIR__ . "/ca.pem",// CA certificate
+  NULL,               // capath
+  NULL                // cipher
 );
 
-if ($conn->connect_error) {
-  die("Koneksi gagal: " . $conn->connect_error);
+$mysqli->real_connect(
+  getenv("DB_HOST"),
+  getenv("DB_USER"),
+  getenv("DB_PASS"),
+  getenv("DB_NAME"),
+  4000,
+  NULL,
+  MYSQLI_CLIENT_SSL
+);
+
+if ($mysqli->connect_error) {
+  die("Koneksi gagal: " . $mysqli->connect_error);
 }
 
-echo "Koneksi ke TiDB Cloud BERHASIL";
+$conn = $mysqli;
 ?>
